@@ -4,6 +4,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\Auth\DoctorAuthController;
+use App\Http\Controllers\Auth\PatientAuthController;
+use App\Http\Controllers\Auth\StaffAuthController;
+use App\Http\Controllers\SlotController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\DoctorDashboardController;
+use App\Http\Controllers\PatientDashboardController;
+
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,4 +64,53 @@ Route::prefix('staff')->group(function () {
     Route::delete('/{staff}', [\App\Http\Controllers\StaffController::class, 'destroy'])->name('staff.destroy');
     Route::post('', [\App\Http\Controllers\StaffController::class, 'store'])->name('staff.store');
     Route::put('/{staff}', [\App\Http\Controllers\StaffController::class, 'update'])->name('staff.update');
+});
+
+// Doctor Portal Routes
+Route::prefix('doctor-portal')->group(function () {
+    Route::get('/', [DoctorAuthController::class, 'showLoginForm'])->name('doctor.login');
+    Route::post('/login', [DoctorAuthController::class, 'login'])->name('doctor.login.submit');
+    Route::post('/logout', [DoctorAuthController::class, 'logout'])->name('doctor.logout');
+    
+    // Protected routes
+    Route::middleware('auth:doctor')->group(function () {
+        Route::get('/dashboard', [DoctorDashboardController::class, 'index'])->name('doctor.dashboard');
+        Route::get('/slots', [\App\Http\Controllers\SlotController::class, 'index'])->name('doctor.slots.index');
+        Route::get('/create', [\App\Http\Controllers\SlotController::class, 'create'])->name('doctor.slots.create');
+        Route::delete('/{doctor}', [\App\Http\Controllers\SlotController::class, 'destroy'])->name('doctor.slots.destroy');
+        Route::post('/', [\App\Http\Controllers\SlotController::class, 'store'])->name('doctor.slots.store');
+    });
+});
+// Patient Portal Routes
+Route::prefix('patient-portal')->group(function () {
+    Route::get('/', [PatientAuthController::class, 'showLoginForm'])->name('patient.login');
+    Route::post('/login', [PatientAuthController::class, 'login'])->name('patient.login.submit');
+    Route::post('/logout', [PatientAuthController::class, 'logout'])->name('patient.logout');
+    
+    // Protected routes
+    Route::middleware('auth:patient')->group(function () {
+
+        Route::get('/dashboard', [PatientDashboardController::class, 'index'])->name('patient.dashboard');
+        
+        Route::get('/appointments/create', [AppointmentController::class, 'create'])->name('patient.appointments.create');
+        Route::get('/appointments/create/{doctor}', [AppointmentController::class, 'createStep2'])->name('patient.appointments.create-step2');
+        Route::post('/appointments', [AppointmentController::class, 'store'])->name('patient.appointments.store');
+        Route::delete('/appointments/{appointment}', [AppointmentController::class, 'destroy'])->name('patient.appointments.destroy');
+        Route::get('/appointments', [AppointmentController::class, 'index'])->name('patient.appointments.index');
+    });
+});
+
+// Staff Portal Routes
+Route::prefix('staff-portal')->group(function () {
+    Route::get('/', [StaffAuthController::class, 'showLoginForm'])->name('staff.login');
+    Route::post('/login', [StaffAuthController::class, 'login'])->name('staff.login.submit');
+    Route::post('/logout', [StaffAuthController::class, 'logout'])->name('staff.logout');
+    
+    // Protected routes
+    Route::middleware('auth:staff')->group(function () {
+        Route::get('/dashboard', function () {
+            return view('staff.dashboard');
+        })->name('staff.dashboard');
+        // other staff routes
+    });
 });

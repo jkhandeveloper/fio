@@ -14,11 +14,6 @@
                             <a href="{{ route('login') }}" class="btn btn-primary btn-lg me-3">
                                 <i class="fas fa-sign-in-alt me-2"></i>Admin Login
                             </a>
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="btn btn-outline-light btn-lg">
-                                    <i class="fas fa-user-plus me-2"></i>Register
-                                </a>
-                            @endif
                         @endguest
                     </div>
                 </div>

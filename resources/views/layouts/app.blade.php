@@ -37,19 +37,43 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        @if (Auth::check())
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('doctors.index') }}">Doctor</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('patients.index') }}">Patient</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('staff.index') }}">Staff</a>
-                </li>
+                @if (Auth::guard('web')->check())
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('doctors.index') }}">Doctor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('patients.index') }}">Patient</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('staff.index') }}">Staff</a>
+                    </li>
+                @elseif(Auth::guard('doctor')->check())
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('doctor.dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('doctor.slots.index') }}">Slots</a>
+                    </li>
+                @elseif(Auth::guard('patient')->check())
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('patient.dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('patient.appointments.index') }}">Appointments</a>
+                    </li>
+                @elseif(Auth::guard('staff')->check())
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('staff.dashboard') }}">Dashboard</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="{{ route('staff.checkin') }}">Check In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('staff.checkout') }}">Check Out</a>
+                    </li> -->
+                @endif
             </ul>
-        @endif
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
                 @guest
@@ -58,29 +82,60 @@
                             <i class="fas fa-sign-in-alt me-1"></i> Login
                         </a>
                     </li>
-                    @if (Route::has('register'))
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">
-                                <i class="fas fa-user-plus me-1"></i> Register
-                            </a>
-                        </li> -->
-                    @endif
                 @else
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            
+                            @if(Auth::guard('doctor')->check())
+                            <i class="fas fa-user-circle me-1"></i> {{ Auth::guard('doctor')->user()->full_name }}
+                            @elseif(Auth::guard('web')->check())
                             <i class="fas fa-user-circle me-1"></i> {{ Auth::user()->name }}
+                            @elseif(Auth::guard('patient')->check())
+                            <i class="fas fa-user-circle me-1"></i> {{ Auth::guard('patient')->user()->full_name }}
+                            @elseif(Auth::guard('staff')->check())
+                            <i class="fas fa-user-circle me-1"></i> {{ Auth::guard('staff')->user()->full_name }}
+                            @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <!-- <a class="dropdown-item" href="{{ route('home') }}">
-                                <i class="fas fa-user me-1"></i> Profile
-                            </a> -->
+                            
+                            @if(Auth::guard('doctor')->check())
+                            <a class="dropdown-item" href="{{ route('doctor.logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt me-1"></i> Logout
+                            </a>
+                            
+                            <form id="logout-form" action="{{ route('doctor.logout') }}" method="POST" class="d-none">
+                                @csrf       
+                            </form>
+                            
+                            @elseif(Auth::guard('web')->check())
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fas fa-sign-out-alt me-1"></i> Logout
                             </a>
+                            
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
+                                @csrf       
                             </form>
+                            @elseif(Auth::guard('patient')->check())
+                            <a class="dropdown-item" href="{{ route('patient.logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt me-1"></i> Logout
+                            </a>
+                            
+                            <form id="logout-form" action="{{ route('patient.logout') }}" method="POST" class="d-none">
+                                @csrf       
+                            </form>
+                            @elseif(Auth::guard('staff')->check())
+                            <a class="dropdown-item" href="{{ route('staff.logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt me-1"></i> Logout
+                            </a>
+                            
+                            <form id="logout-form" action="{{ route('staff.logout') }}" method="POST" class="d-none">
+                                @csrf       
+                            </form>
+                            @endif
                         </div>
                     </li>
                 @endguest
