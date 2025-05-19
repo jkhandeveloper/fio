@@ -7,7 +7,7 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                @foreach($doctors as $doctor)
+                @forelse($doctors as $doctor)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body text-center">
@@ -24,7 +24,13 @@
                         </div>
                     </div>
                 </div>
-                @endforeach
+                @empty
+                <div class="col-12">
+                    <div class="alert alert-info text-center">
+                        No doctors available at the moment. Please check back later.
+                    </div>
+                </div>
+                @endforelse
             </div>
         </div>
     </div>

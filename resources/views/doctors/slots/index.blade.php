@@ -26,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($slots as $slot)
+                    @forelse($slots as $slot)
                     <tr>
                         <td>{{ $slot->date->format('D, M j, Y') }}</td>
                         <td>{{ date('g:i A', strtotime($slot->start_time)) }}</td>
@@ -46,7 +46,11 @@
                             @endif
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="5" class="text-center">No available slots. Create new slots for patients to book.</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
             {{ $slots->links('pagination::bootstrap-5') }}

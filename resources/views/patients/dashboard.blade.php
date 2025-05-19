@@ -53,7 +53,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($todayAppointments as $appointment)
+                            @forelse($todayAppointments as $appointment)
                             <tr>
                                 <td>{{ $appointment->slot->doctor->full_name }}</td>
                                 <td>
@@ -74,7 +74,11 @@
                                     </form>
                                 </td>
                             </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="5" class="text-center">No appointments scheduled for today.</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -106,7 +110,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($upcomingAppointments as $appointment)
+                                    @forelse($upcomingAppointments as $appointment)
                                     <tr>
                                         <td>{{ $appointment->slot->date->format('D, M j') }}</td>
                                         <td>{{ $appointment->slot->doctor->full_name }}</td>
@@ -127,7 +131,11 @@
                                             </form>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                    @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center">No upcoming appointments.</td>
+                                    </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -147,7 +155,7 @@
                         <p>You haven't booked with any doctors yet.</p>
                     @else
                         <div class="list-group">
-                            @foreach($recentDoctors as $doctor)
+                            @forelse($recentDoctors as $doctor)
                             <div class="list-group-item">
                                 <div class="d-flex align-items-center">
                                     <div>
@@ -160,7 +168,11 @@
                                        class="btn btn-sm btn-outline-primary">Book Again</a>
                                 </div>
                             </div>
-                            @endforeach
+                            @empty
+                            <div class="list-group-item">
+                                <p class="mb-0">No recent doctors found.</p>
+                            </div>
+                            @endforelse
                         </div>
                     @endif
                 </div>

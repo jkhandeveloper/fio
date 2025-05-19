@@ -24,7 +24,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($appointments as $appointment)
+                    @forelse($appointments as $appointment)
                     <tr>
                         <td>{{ $appointment->slot->doctor->full_name }}</td>
                         <td>{{ $appointment->slot->date->format('D, M j, Y') }}</td>
@@ -47,7 +47,11 @@
                             @endif
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="5" class="text-center">No appointments found.</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
             {{ $appointments->links('pagination::bootstrap-5') }}

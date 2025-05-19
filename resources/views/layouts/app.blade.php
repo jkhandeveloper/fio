@@ -66,12 +66,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('staff.dashboard') }}">Dashboard</a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="{{ route('staff.checkin') }}">Check In</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('staff.visits.index') }}">Today's Appointments</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('staff.checkout') }}">Check Out</a>
-                    </li> -->
+                        <a class="nav-link" href="{{ route('staff.visits.active') }}">Active Visits</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('staff.visits.completed') }}">Completed Visits</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('staff.medical-records.index') }}">Medical Records</a>
+                    </li>
                 @endif
             </ul>
             <!-- Right Side Of Navbar -->

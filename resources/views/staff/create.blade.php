@@ -39,9 +39,9 @@
                         @enderror
                     </div>
                     <div class="col-md-6">
-                        <label for="phone" class="form-label">Phone</label>
-                        <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}" required>
-                        @error('phone')
+                        <label for="password" class="form-label">password</label>
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" value="{{ old('password') }}" required>
+                        @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -49,12 +49,22 @@
 
                 <div class="row mb-3">
                     <div class="col-md-6">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}" required>
+                        @error('phone')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
                         <label for="position" class="form-label">Position</label>
                         <input type="text" class="form-control @error('position') is-invalid @enderror" id="position" name="position" value="{{ old('position') }}" required>
                         @error('position')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                </div>
+
+                <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="department" class="form-label">Department</label>
                         <input type="text" class="form-control @error('department') is-invalid @enderror" id="department" name="department" value="{{ old('department') }}" required>
@@ -62,9 +72,6 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                </div>
-                
-                <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="salary" class="form-label">Salary</label>
                         <input type="number" class="form-control @error('salary') is-invalid @enderror" id="salary" name="salary" value="{{ old('salary') }}" required>
@@ -72,6 +79,9 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                </div>
+                
+                <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="hire_date" class="form-label">Hire Date</label>
                         <input type="date" class="form-control @error('hire_date') is-invalid @enderror" id="hire_date" name="hire_date" value="{{ old('hire_date') }}" required>
@@ -85,7 +95,7 @@
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save"></i> Save Staff
                     </button>
-                    <a href="{{ route('staff.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('staff.visits.index') }}" class="btn btn-secondary">
                         <i class="fas fa-times"></i> Cancel
                     </a>
                 </div>

@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1>Edit Doctor</h1>
+            <h1>Edit Staff</h1>
         </div>
     </div>
 
@@ -84,7 +84,7 @@
 
                 <div class="text-end">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Update Doctor
+                        <i class="fas fa-save"></i> Update Staff
                     </button>
                     <a href="{{ route('staff.index') }}" class="btn btn-secondary">
                         <i class="fas fa-times"></i> Cancel

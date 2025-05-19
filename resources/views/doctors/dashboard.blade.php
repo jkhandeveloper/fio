@@ -53,7 +53,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($todayAppointments as $appointment)
+                            @forelse($todayAppointments as $appointment)
                             <tr>
                                 <td>{{ $appointment->patient->full_name }}</td>
                                 <td>
@@ -67,7 +67,11 @@
                                     </span>
                                 </td>
                             </tr>
-                            @endforeach
+                            @empty  
+                            <tr>
+                                <td colspan="4" class="text-center">No appointments found</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -87,7 +91,7 @@
                         <p>No upcoming appointments.</p>
                     @else
                         <div class="list-group">
-                            @foreach($upcomingAppointments as $appointment)
+                            @forelse($upcomingAppointments as $appointment)
                             <div class="list-group-item">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">{{ $appointment->patient->full_name }}</h5>
@@ -99,7 +103,12 @@
                                 </p>
                                 <small>{{ $appointment->reason ?? 'No reason provided' }}</small>
                             </div>
-                            @endforeach
+
+                            @empty
+                            <div class="list-group-item">
+                                <p class="mb-0">No upcoming appointments found.</p>
+                            </div>
+                            @endforelse
                         </div>
                     @endif
                 </div>
@@ -118,7 +127,7 @@
                         <p>No available slots. Create new slots for patients to book.</p>
                     @else
                         <div class="list-group">
-                            @foreach($recentSlots as $slot)
+                            @forelse($recentSlots as $slot)
                             <div class="list-group-item">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">{{ $slot->date->format('l, F j') }}</h5>
@@ -136,7 +145,11 @@
                                     </form>
                                 </div>
                             </div>
-                            @endforeach
+                            @empty
+                            <div class="list-group-item">
+                                <p class="mb-0">No recent slots found.</p>  
+                            </div>
+                            @endforelse
                         </div>
                     @endif
                 </div>

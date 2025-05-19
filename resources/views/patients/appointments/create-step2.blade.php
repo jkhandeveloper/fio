@@ -21,14 +21,18 @@
                             <div class="col-md-6 mb-4">
                                 <h6>{{ \Carbon\Carbon::parse($date)->format('l, F j, Y') }}</h6>
                                 <div class="list-group">
-                                    @foreach($slots as $slot)
+                                    @forelse($slots as $slot)
                                     <label class="list-group-item">
                                         <input type="radio" name="slot_id" 
                                                value="{{ $slot->id }}" required>
                                         {{ date('g:i A', strtotime($slot->start_time)) }} - 
                                         {{ date('g:i A', strtotime($slot->end_time)) }}
                                     </label>
-                                    @endforeach
+                                    @empty
+                                    <div class="list-group-item">
+                                        No slots available for this date.
+                                    </div>
+                                    @endforelse
                                 </div>
                             </div>
                             @endforeach

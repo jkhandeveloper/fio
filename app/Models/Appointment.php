@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-    protected $fillable = ['slot_id', 'patient_id', 'reason', 'status'];
+    protected $fillable = ['slot_id', 'patient_id', 'reason', 'status','visit_status'];
     
     public function slot()
     {
@@ -16,5 +16,9 @@ class Appointment extends Model
     public function patient()
     {
         return $this->belongsTo(Patient::class);
+    }
+    public function visit()
+    {
+        return $this->hasOne(PatientVisit::class);
     }
 }
