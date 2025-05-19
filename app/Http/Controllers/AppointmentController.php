@@ -64,7 +64,7 @@ class AppointmentController extends Controller
             'reason' => $validated['reason'],
         ]);
         Mail::to($appointment->patient->email)
-        ->queue(new AppointmentConfirmationMail($appointment));
+        ->send(new AppointmentConfirmationMail($appointment));
         return redirect()->route('patient.appointments.index')
                          ->with('success', 'Appointment booked successfully');
     }
