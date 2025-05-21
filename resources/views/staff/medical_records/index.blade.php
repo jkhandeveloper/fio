@@ -21,8 +21,8 @@
                         @forelse($records as $record)
                         <tr>
                             <td>
-                                @if($record->visit && $record->visit->patient)
-                                    {{ $record->visit->patient->full_name }}
+                                @if($record->patientVisit && $record->patientVisit->patient)
+                                    {{ $record->patientVisit->patient->full_name }}
                                 @else
                                     <span class="text-muted">Patient not available</span>
                                 @endif

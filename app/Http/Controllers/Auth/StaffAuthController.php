@@ -24,7 +24,7 @@ class StaffAuthController extends Controller
 
         if (Auth::guard('staff')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/staff/dashboard');
+            return redirect()->intended('/staff-portal/dashboard');
         }
 
         return back()->withErrors([

@@ -5,13 +5,12 @@ namespace App\Mail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Models\Appointment;
-use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class AppointmentConfirmationMail extends Mailable implements ShouldQueue
+class AppointmentConfirmationMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use SerializesModels;
 
     public $appointment;
 

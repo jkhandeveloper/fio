@@ -83,11 +83,11 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
                 @guest
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">
                             <i class="fas fa-sign-in-alt me-1"></i> Login
                         </a>
-                    </li>
+                    </li> -->
                 @else
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">

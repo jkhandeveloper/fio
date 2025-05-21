@@ -11,12 +11,12 @@
             <div class="row mb-4">
                 <div class="col-md-6">
                     <h5>Patient Information</h5>
-                    @if($record->visit && $record->visit->patient)
-                        <p><strong>Name:</strong> {{ $record->visit->patient->full_name }}</p>
-                        <p><strong>Visit Date:</strong> {{ $record->visit->checkin_time->format('M j, Y') }}</p>
-                        <p><strong>Check-in:</strong> {{ $record->visit->checkin_time->format('g:i A') }}</p>
-                        @if($record->visit->checkout_time)
-                            <p><strong>Check-out:</strong> {{ $record->visit->checkout_time->format('g:i A') }}</p>
+                    @if($record->patientVisit && $record->patientVisit->patient)
+                        <p><strong>Name:</strong> {{ $record->patientVisit->patient->full_name }}</p>
+                        <p><strong>Visit Date:</strong> {{ \Carbon\Carbon::parse($record->patientVisit->checkin_time)->format('M j, Y') }}</p>
+                        <p><strong>Check-in:</strong> {{ \Carbon\Carbon::parse($record->patientVisit->checkin_time)->format('g:i A') }}</p>
+                        @if($record->patientVisit->checkout_time)
+                            <p><strong>Check-out:</strong> {{ \Carbon\Carbon::parse($record->patientVisit->checkout_time)->format('g:i A') }}</p>
                         @endif
                     @else
                         <p class="text-danger">Patient visit information not available</p>
